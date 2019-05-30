@@ -3,6 +3,7 @@
 
 #include "Arduino.h"
 #include <stdint.h>
+#include "platform.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -12,11 +13,11 @@ extern "C"{
 #define PortAddr_t uint32_t
 #define PortRegister_t volatile uint32_t *
 
-#define digitalPinToPort(pin)    ((PortAddr_t)     GPIO_CTRL_ADDR)
-#define digitalPinToPortIn(pin)  ((PortAddr_t)     GPIO_CTRL_ADDR)
-#define digitalPinToBitMask(pin) ((PortValue_t)    (1<<variant_pin_map[pin].bit_pos))
-#define portOutputRegister(port) ((PortRegister_t) (GPIO_CTRL_ADDR + GPIO_OUTPUT_VAL))
-#define portInputRegister(port)  ((PortRegister_t) (GPIO_CTRL_ADDR + GPIO_INPUT_VAL))
+#define digitalPinToPort(pin)    ((PortAddr_t)     GPIOHS_BASE_ADDR)
+#define digitalPinToPortIn(pin)  ((PortAddr_t)     GPIOHS_BASE_ADDR)
+#define digitalPinToBitMask(pin) ((PortValue_t)    (1<<pin))
+#define portOutputRegister(port) ((PortRegister_t) (GPIOHS_BASE_ADDR + GPIOHS_OUTPUT_VAL))
+#define portInputRegister(port)  ((PortRegister_t) (GPIOHS_BASE_ADDR + GPIOHS_INPUT_VAL))
 
 /**
  * \brief Configures the specified pin to behave either as an input or an output. See the description of digital pins for details.
@@ -46,11 +47,16 @@ extern void digitalWrite( uint8_t dwPin, uint8_t dwVal ) ;
 /**
  * \brief Reads the value from a specified digital pin, either HIGH or LOW.
  *
- * \param ulPin The number of the digital pin you want to read (int)
+ * \param dwPin The number of the digital pin you want to read (int)
  *
  * \return HIGH or LOW
  */
-extern int digitalRead( uint8_t ulPin ) ;
+extern int digitalRead( uint8_t dwPin ) ;
+
+int getGpio(uint8_t fpioPin) ;
+int getGpio_s(uint8_t fpioPin) ;
+fpioa_function_t fpioa_get_function_buy_io(uint8_t fpioPin) ;
+int find_unused_gpiohs_io(void) ;
 
 #ifdef __cplusplus
 } // extern "C"

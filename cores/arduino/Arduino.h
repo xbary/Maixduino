@@ -30,6 +30,7 @@
 // AVR stuff, assuming Arduino.h or WProgram.h
 // automatically includes it...
 #include <avr/pgmspace.h>
+#include <avr/dtostrf.h>
 //#include <avr/interrupt.h>
 
 #include "binary.h"
@@ -39,6 +40,8 @@
 #include "gpiohs.h"
 #include "gpio.h"
 #include "gpio_common.h"
+#include "plic.h"
+#include "uarths.h"
 
 #ifdef __cplusplus
 extern "C"{
@@ -66,11 +69,16 @@ typedef void (*voidFuncPtr)( void ) ;
 #ifdef __cplusplus
 } // extern "C"
 
-//#include "WCharacter.h"
-//#include "WString.h"
-//#include "WMath.h"
-//#include "HardwareSerial.h"
-//#include "wiring_pulse.h"
+#include "WCharacter.h"
+#include "WString.h"
+#include "WMath.h"
+#include "HardwareSerial.h"
+#include "wiring_pulse.h"
+#include "Client.h"
+#include "HardwareI2C.h"
+#include "IPAddress.h"
+#include "Server.h"
+#include "Udp.h"
 
 // Tone function prototypes
 void tone(uint8_t _pin, unsigned int frequency, unsigned long duration = 0);
@@ -81,6 +89,6 @@ void noTone(uint8_t _pin);
 #include "wiring_digital.h"
 #include "wiring_analog.h"
 #include "wiring_shift.h"
-//#include "WInterrupts.h"
+#include "WInterrupts.h"
 
 #endif // Arduino_h

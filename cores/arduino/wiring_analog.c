@@ -12,7 +12,7 @@ static int _readResolution = 0;
 static int _writeResolution = 8;
 static double _writeFreq = 200000;
 
-static pwm_fpio_set_t pwm_pins[VARIANT_NUM_PWM]={
+pwm_fpio_set_t pwm_pins[VARIANT_NUM_PWM]={
     {.channel = PWM_CHANNEL_0, .device = PWM_DEVICE_0, .inuse = 0x0},
     {.channel = PWM_CHANNEL_1, .device = PWM_DEVICE_0, .inuse = 0x0},
     {.channel = PWM_CHANNEL_2, .device = PWM_DEVICE_0, .inuse = 0x0},
@@ -94,6 +94,13 @@ int8_t getPwmPin(void)
         }
     }
     return -1;
+}
+
+uint32_t analogRead( uint32_t ulPin ) 
+{
+#if (defined(BOARD_SIPEED_MAIX_GO) || defined(BOARD_SIPEED_MAIX_ONE_DOCK) )
+    return 0;
+#endif
 }
 
 #ifdef __cplusplus

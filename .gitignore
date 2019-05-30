@@ -30,3 +30,5 @@
 *.exe
 *.out
 *.app
+/cores/arduino/kendryte-standalone-sdk
+/Tools
